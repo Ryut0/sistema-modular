@@ -108,6 +108,7 @@ export default function Home() {
       <Future />
       <FinalCTA />
       <Footer />
+      <FooterBackdrop />
     </main>
   );
 }
@@ -449,22 +450,54 @@ function Organization() {
         <SectionIntro
           eyebrow="Organizacion visual y operacional"
           title="Un mapa vivo de departamentos, areas, cargos, bloques y laboratorios."
-          body="Inspirado en Miro, React Flow y Whimsical: drag and drop, zoom, relaciones visuales, nodos personalizados y automatizacion basada en estructura organizacional."
+          body="La estructura deja de ser una lista plana. Cada area, sede y responsable se conecta visualmente para automatizar asignaciones, SLAs y rutas de escalamiento."
         />
-        <div className="relative min-h-[440px] border border-emerald-900/10 bg-white p-6">
-          <OrgNode className="left-[8%] top-[12%]" title="Direccion" tone="bg-zinc-950 text-white" />
-          <OrgNode className="left-[35%] top-[28%]" title="Operaciones" tone="bg-emerald-700 text-white" />
-          <OrgNode className="right-[9%] top-[14%]" title="TI" tone="bg-cyan-700 text-white" />
-          <OrgNode className="left-[16%] bottom-[16%]" title="Bloque A" tone="bg-white text-zinc-900" />
-          <OrgNode className="left-[48%] bottom-[10%]" title="Laboratorio" tone="bg-white text-zinc-900" />
-          <OrgNode className="right-[5%] bottom-[24%]" title="Soporte N2" tone="bg-white text-zinc-900" />
-          <div className="absolute left-[20%] top-[25%] h-px w-[45%] bg-zinc-300" />
-          <div className="absolute left-[48%] top-[41%] h-[32%] w-px bg-zinc-300" />
-          <div className="absolute right-[20%] top-[28%] h-[43%] w-px bg-zinc-300" />
-          <div className="absolute bottom-6 left-6 right-6 grid gap-3 sm:grid-cols-3">
-            {["Peso operacional", "Relaciones visuales", "Automatizacion"].map((item) => (
-              <span key={item} className="rounded-md border border-zinc-200 bg-[#f7f8f5] px-3 py-2 text-xs font-medium text-zinc-600">{item}</span>
-            ))}
+        <div className="overflow-hidden rounded-md border border-emerald-900/10 bg-white shadow-[0_22px_70px_rgba(15,23,42,0.08)]">
+          <div className="border-b border-zinc-200 px-5 py-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-cyan-700">Mapa organizacional</p>
+            <h3 className="mt-1 text-xl font-semibold tracking-tight">Asignacion automatica por estructura</h3>
+          </div>
+          <div className="relative min-h-[460px] p-6">
+            <div className="absolute left-1/2 top-[92px] hidden h-[72px] w-px -translate-x-1/2 bg-zinc-300 md:block" />
+            <div className="absolute left-[18%] right-[18%] top-[164px] hidden h-px bg-zinc-300 md:block" />
+            <div className="absolute left-[18%] top-[164px] hidden h-[64px] w-px bg-zinc-300 md:block" />
+            <div className="absolute left-1/2 top-[164px] hidden h-[64px] w-px -translate-x-1/2 bg-zinc-300 md:block" />
+            <div className="absolute right-[18%] top-[164px] hidden h-[64px] w-px bg-zinc-300 md:block" />
+
+            <div className="mx-auto w-fit">
+              <OrgNode title="Direccion general" tone="bg-zinc-950 text-white border-zinc-950" detail="Reglas y gobierno" />
+            </div>
+
+            <div className="mt-20 grid gap-4 md:grid-cols-3">
+              <OrgGroup
+                title="Operaciones"
+                tone="bg-emerald-700 text-white border-emerald-700"
+                items={["Bloque A", "Laboratorio", "Mantenimiento"]}
+              />
+              <OrgGroup
+                title="Tecnologia"
+                tone="bg-cyan-700 text-white border-cyan-700"
+                items={["Soporte N1", "Soporte N2", "Infraestructura"]}
+              />
+              <OrgGroup
+                title="Administracion"
+                tone="bg-amber-500 text-zinc-950 border-amber-500"
+                items={["Compras", "Activos", "Aprobaciones"]}
+              />
+            </div>
+
+            <div className="mt-8 grid gap-3 border-t border-zinc-200 pt-5 sm:grid-cols-3">
+              {[
+                ["Peso operacional", "Prioridad por area"],
+                ["Relaciones visuales", "Responsables conectados"],
+                ["Automatizacion", "SLA segun estructura"]
+              ].map(([title, body]) => (
+                <div key={title} className="rounded-md border border-zinc-200 bg-[#f7f8f5] px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{title}</p>
+                  <p className="mt-1 text-sm font-semibold text-zinc-900">{body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -472,11 +505,30 @@ function Organization() {
   );
 }
 
-function OrgNode({ className, title, tone }: { className: string; title: string; tone: string }) {
+function OrgGroup({ title, tone, items }: { title: string; tone: string; items: string[] }) {
   return (
-    <div className={`absolute rounded-md border border-zinc-200 px-4 py-3 text-sm font-semibold shadow-sm ${tone} ${className}`}>
-      <CircleDot className="mr-2 inline h-4 w-4" />
-      {title}
+    <div className="rounded-md border border-zinc-200 bg-white p-3 shadow-sm">
+      <OrgNode title={title} tone={tone} detail="Nodo principal" />
+      <div className="mt-3 grid gap-2">
+        {items.map((item) => (
+          <div key={item} className="flex items-center gap-2 rounded-md border border-zinc-200 bg-[#f7f8f5] px-3 py-2 text-sm font-medium text-zinc-700">
+            <CircleDot className="h-4 w-4 text-cyan-700" />
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function OrgNode({ title, tone, detail }: { title: string; tone: string; detail: string }) {
+  return (
+    <div className={`rounded-md border px-4 py-3 shadow-sm ${tone}`}>
+      <div className="flex items-center gap-2 text-sm font-semibold">
+        <CircleDot className="h-4 w-4" />
+        {title}
+      </div>
+      <p className="mt-1 text-xs opacity-75">{detail}</p>
     </div>
   );
 }
@@ -618,19 +670,57 @@ function SectionIntro({
 
 function Footer() {
   return (
-    <footer className="px-5 pb-10 sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 border-t border-zinc-200 pt-8 md:flex-row md:items-center md:justify-between">
+    <footer className="bg-white px-5 py-14 sm:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 border-t border-zinc-200 pt-10 lg:grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr]">
         <div>
-          <p className="font-semibold">Sistema Modular</p>
-          <p className="mt-2 text-sm text-zinc-500">Plataforma operacional inteligente y modular.</p>
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-md bg-zinc-950 text-xs font-semibold text-white">SM</span>
+            <p className="font-semibold">Sistema Modular</p>
+          </div>
+          <p className="mt-4 max-w-sm text-sm leading-6 text-zinc-500">
+            Plataforma operacional inteligente para helpdesk, inventario, permisos, automatizacion y trazabilidad.
+          </p>
         </div>
-        <div className="flex flex-wrap gap-4 text-sm font-medium text-zinc-500">
-          <a href="#modulos" className="hover:text-zinc-950">Modulos</a>
-          <a href="#helpdesk" className="hover:text-zinc-950">Helpdesk</a>
-          <a href="#inventario" className="hover:text-zinc-950">Inventario</a>
-          <a href="#tecnologia" className="hover:text-zinc-950">Tecnologia</a>
-        </div>
+        <FooterColumn title="Producto" links={["Modulos", "Helpdesk", "Inventario", "Organizacion"]} />
+        <FooterColumn title="Plataforma" links={["Automatizacion", "Permisos", "Auditoria", "Reportes"]} />
+        <FooterColumn title="Empresa" links={["Demo", "Contacto", "Seguridad", "Roadmap"]} />
+      </div>
+      <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-3 border-t border-zinc-200 pt-6 text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
+        <p>© 2026 Sistema Modular. Todos los derechos reservados.</p>
+        <p>Hecho para operaciones reales, modulares y trazables.</p>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, links }: { title: string; links: string[] }) {
+  return (
+    <div>
+      <h3 className="text-xs font-semibold uppercase tracking-wide text-zinc-950">{title}</h3>
+      <div className="mt-4 grid gap-2.5">
+        {links.map((link) => (
+          <a key={link} href="#demo" className="text-sm font-medium text-zinc-500 transition hover:text-zinc-950">
+            {link}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FooterBackdrop() {
+  return (
+    <section
+      className="relative grid min-h-[260px] place-items-center overflow-hidden bg-zinc-950 bg-fixed bg-center px-5"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(9,9,11,0.82), rgba(9,9,11,0.82)), linear-gradient(90deg, rgba(34,211,238,0.12) 1px, transparent 1px), linear-gradient(rgba(34,211,238,0.10) 1px, transparent 1px)",
+        backgroundSize: "auto, 72px 72px, 72px 72px"
+      }}
+    >
+      <p className="select-none text-center text-[clamp(4rem,18vw,16rem)] font-semibold uppercase leading-none tracking-tight text-white/10">
+        NEXO
+      </p>
+    </section>
   );
 }
