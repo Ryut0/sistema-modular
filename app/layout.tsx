@@ -2,25 +2,24 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  applicationName: "InvGate Service Management",
-  title: "InvGate Service Management | Plataforma ITSM Enterprise",
+  applicationName: "Sistema Modular",
+  title: "Sistema Modular | Soporte, activos y operaciones internas",
   description:
-    "Centraliza tickets, SLAs, activos, automatizaciones, conocimiento y analítica en una plataforma ITSM preparada para equipos enterprise.",
+    "Gestiona soporte, activos, SLAs, permisos y automatizaciones en una plataforma modular para operaciones internas.",
   keywords: [
-    "ITSM",
-    "service desk",
+    "Sistema Modular",
     "mesa de ayuda",
-    "software ITSM",
-    "gestión de servicios",
-    "InvGate Service Management",
-    "automatización IT",
+    "inventario IT",
+    "software de soporte",
+    "gestion de activos",
+    "automatizacion IT",
     "SLAs",
-    "ITIL"
+    "operaciones internas"
   ],
   openGraph: {
-    title: "InvGate Service Management | Plataforma ITSM Enterprise",
+    title: "Sistema Modular | Soporte, activos y operaciones internas",
     description:
-      "Centraliza servicios, automatiza procesos y controla la operación IT con una plataforma preparada para crecer.",
+      "Centraliza soporte, inventario, SLAs, permisos y automatizaciones en una plataforma modular.",
     type: "website",
     locale: "es_CO"
   },
@@ -30,9 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "InvGate Service Management | Plataforma ITSM Enterprise",
+    title: "Sistema Modular | Soporte, activos y operaciones internas",
     description:
-      "Centraliza servicios, automatiza procesos y controla la operación IT con una plataforma preparada para crecer."
+      "Centraliza soporte, inventario, SLAs, permisos y automatizaciones en una plataforma modular."
   }
 };
 
