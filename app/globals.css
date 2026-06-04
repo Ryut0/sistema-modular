@@ -27,38 +27,91 @@ body {
   color: #07080d;
 }
 
-.footer-word-reveal {
-  view-timeline-name: --footer-word;
-  view-timeline-axis: block;
+.footer-reveal-shell {
+  min-height: auto;
 }
 
-.footer-word-sticky {
+.footer-reveal-panel {
   position: sticky;
-  top: 12vh;
-  width: max-content;
-  min-width: 100%;
-  transform: translateY(10vh) scale(1.03);
-  animation: footer-word-rise linear both;
-  animation-timeline: --footer-word;
-  animation-range: entry 0% cover 92%;
+  bottom: 0;
 }
 
-@keyframes footer-word-rise {
-  from {
-    opacity: 0.07;
-    transform: translateY(16vh) scale(1.03);
-  }
+.footer-word-stage {
+  margin-top: 0;
+  padding-top: 0;
+  transform: translateZ(0);
+}
 
+.footer-word {
+  position: relative;
+  display: inline-block;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.footer-word.is-typing {
+  opacity: 1;
+}
+
+.footer-word-text {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+}
+
+.footer-word-caret {
+  position: absolute;
+  bottom: 0.04em;
+  left: 0;
+  top: 0.02em;
+  width: 0.045em;
+  background: rgba(255, 255, 255, 0.28);
+  opacity: 0;
+}
+
+.footer-word.is-typing .footer-word-text {
+  animation: footer-typewriter 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.footer-word.is-typing .footer-word-caret {
+  animation: footer-caret-track 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards, footer-caret 0.85s step-end infinite;
+  opacity: 1;
+}
+
+@keyframes footer-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes footer-typewriter {
   to {
-    opacity: 1;
-    transform: translateY(-14vh) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes footer-caret-track {
+  to {
+    left: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-word-sticky {
-    animation: none;
+  .footer-word {
+    width: max-content;
     transform: none;
+    opacity: 1;
+    animation: none;
     transition: none;
+  }
+
+  .footer-word-text {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .footer-word-caret {
+    display: none;
   }
 }
