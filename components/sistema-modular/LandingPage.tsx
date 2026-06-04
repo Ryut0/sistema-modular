@@ -8,11 +8,10 @@ import {
   ScanLine,
   Zap
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { backend, experience, frontend, future, helpdeskFlow, inventory, modules, operatingSystem } from "./data";
+import { FooterReveal } from "./Footer";
 import { Header, Hero } from "./Hero";
-import { TypewriterWord } from "./TypewriterWord";
-import { FooterColumn, OrgNode, SectionIntro, TechStack } from "./ui";
+import { OrgNode, SectionIntro, TechStack } from "./ui";
 
 export default function SistemaModularLanding() {
   return (
@@ -166,7 +165,7 @@ function Inventory() {
 
 function Organization() {
   return (
-    <section className="bg-[#eef6f3] px-5 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <section id="organizacion" className="bg-[#eef6f3] px-5 py-20 sm:px-6 lg:px-8 lg:py-28">
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
         <SectionIntro
           eyebrow="Organizacion visual y operacional"
@@ -267,16 +266,13 @@ function Experience() {
           body="La plataforma combina temas avanzados, dark mode profesional, responsive, PWA, notificaciones inteligentes, sidebar modular y dashboard contextual."
         />
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {experience.map(([title, body, Icon]) => {
-            const TypedIcon = Icon as LucideIcon;
-            return (
-              <article key={title as string} className="border-t border-zinc-200 pt-5">
-                <TypedIcon className="h-5 w-5 text-cyan-700" />
-                <h3 className="mt-5 font-semibold">{title as string}</h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">{body as string}</p>
-              </article>
-            );
-          })}
+          {experience.map(([title, body, Icon]) => (
+            <article key={title} className="border-t border-zinc-200 pt-5">
+              <Icon className="h-5 w-5 text-cyan-700" />
+              <h3 className="mt-5 font-semibold">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-zinc-600">{body}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -304,6 +300,7 @@ function Technology() {
 function Future() {
   return (
     <section
+      id="futuro"
       className="bg-zinc-950 bg-fixed bg-center px-5 py-20 text-white sm:px-6 lg:px-8 lg:py-28"
       style={{
         backgroundImage:
@@ -346,55 +343,6 @@ function FinalCTA() {
           <ArrowRight className="ml-2 h-4 w-4" />
         </a>
       </div>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="px-5 pb-10 pt-14 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-10 pt-10 lg:grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr]">
-        <div>
-          <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-md bg-white text-xs font-semibold text-zinc-950">NX</span>
-            <p className="font-semibold">Sistema Modular</p>
-          </div>
-          <p className="mt-4 max-w-sm text-sm leading-6 text-zinc-400">
-            Plataforma operacional inteligente para helpdesk, inventario, permisos, automatizacion y trazabilidad.
-          </p>
-        </div>
-        <FooterColumn title="Producto" links={["Modulos", "Helpdesk", "Inventario", "Organizacion"]} />
-        <FooterColumn title="Plataforma" links={["Automatizacion", "Permisos", "Auditoria", "Reportes"]} />
-        <FooterColumn title="Empresa" links={["Demo", "Contacto", "Seguridad", "Roadmap"]} />
-      </div>
-      <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-3 pt-6 text-sm text-zinc-500 md:flex-row md:items-center md:justify-between">
-        <p>&copy; 2026 Sistema Modular. Todos los derechos reservados.</p>
-        <p>Hecho para operaciones reales, modulares y trazables.</p>
-      </div>
-    </footer>
-  );
-}
-
-function FooterReveal() {
-  return (
-    <section className="footer-reveal-shell relative overflow-hidden bg-[#202123]">
-      <div className="footer-reveal-panel relative z-10 bg-[#121314] shadow-[0_28px_90px_rgba(0,0,0,0.35)]">
-        <Footer />
-      </div>
-      <FooterBackdrop />
-    </section>
-  );
-}
-
-function FooterBackdrop() {
-  return (
-    <section
-      aria-hidden="true"
-      className="footer-word-stage relative z-0 grid min-h-[36vh] place-items-center overflow-hidden bg-[#202123] pb-8 pt-24"
-    >
-      <TypewriterWord className="translate-y-4 select-none text-center text-[clamp(7rem,28vw,24rem)] font-medium uppercase leading-[0.72] text-white/[0.16]">
-        NEXO
-      </TypewriterWord>
     </section>
   );
 }

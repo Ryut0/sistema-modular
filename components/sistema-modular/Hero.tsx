@@ -1,14 +1,18 @@
 import {
-  Activity,
   ArrowRight,
-  Boxes,
-  FileSearch,
-  KeyRound,
-  Network,
   Sparkles,
-  TicketCheck,
   Video
 } from "lucide-react";
+import {
+  assetTags,
+  assetTimeline,
+  automationSteps,
+  commandCenterMetrics,
+  commandCenterNavIcons,
+  commandCenterTags,
+  commandCenterTickets,
+  heroStats
+} from "./data";
 
 export function Header() {
   return (
@@ -59,11 +63,7 @@ export function Hero() {
             </a>
           </div>
           <div className="mt-10 grid grid-cols-3 gap-4 border-t border-zinc-200 pt-6">
-            {[
-              ["FSM", "flujo de tickets"],
-              ["RBAC", "permisos dinamicos"],
-              ["PWA", "operacion instalable"]
-            ].map(([value, label]) => (
+            {heroStats.map(([value, label]) => (
               <div key={label}>
                 <strong className="block text-2xl font-semibold">{value}</strong>
                 <span className="mt-1 block text-sm text-zinc-500">{label}</span>
@@ -93,7 +93,7 @@ function CommandCenter() {
       <div className="grid min-h-[610px] lg:grid-cols-[76px_1fr_300px]">
         <aside className="hidden border-r border-white/10 bg-black/20 px-3 py-5 lg:block">
           <div className="space-y-3">
-            {[Activity, TicketCheck, Boxes, Network, KeyRound, FileSearch].map((Icon, index) => (
+            {commandCenterNavIcons.map((Icon, index) => (
               <span key={index} className={index === 0 ? "grid h-11 w-11 place-items-center rounded-md bg-white text-zinc-950" : "grid h-11 w-11 place-items-center rounded-md text-zinc-500"}>
                 <Icon className="h-5 w-5" />
               </span>
@@ -108,18 +108,14 @@ function CommandCenter() {
               <h2 className="mt-1 text-2xl font-semibold tracking-tight">Operacion tecnica en vivo</h2>
             </div>
             <div className="flex flex-wrap gap-2">
-              {["Helpdesk", "Inventario", "SLA", "Auditoria"].map((item) => (
+              {commandCenterTags.map((item) => (
                 <span key={item} className="rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-300">{item}</span>
               ))}
             </div>
           </div>
 
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            {[
-              ["342", "tickets activos", "text-cyan-300"],
-              ["97%", "SLA en control", "text-emerald-300"],
-              ["1.8k", "activos trazados", "text-amber-300"]
-            ].map(([value, label, color]) => (
+            {commandCenterMetrics.map(([value, label, color]) => (
               <div key={label} className="rounded-md border border-white/10 bg-white/[0.04] p-4">
                 <strong className={`block text-2xl font-semibold ${color}`}>{value}</strong>
                 <span className="mt-1 block text-xs text-zinc-400">{label}</span>
@@ -135,12 +131,7 @@ function CommandCenter() {
                 <span>SLA</span>
               </div>
               <div className="space-y-3">
-                {[
-                  ["INC-2401", "Servidor laboratorio bloque A", "Critico", "00:42", "bg-rose-400"],
-                  ["REQ-1182", "Alta usuario administrativo", "Aprobacion", "03:10", "bg-amber-400"],
-                  ["INV-7780", "Scanner QR sin trazabilidad", "Revision", "08:25", "bg-cyan-400"],
-                  ["MNT-6041", "Mantenimiento equipo especializado", "Programado", "18:20", "bg-emerald-400"]
-                ].map(([id, title, status, sla, color]) => (
+                {commandCenterTickets.map(([id, title, status, sla, color]) => (
                   <div key={id} className="grid grid-cols-[1fr_92px_72px] gap-3 rounded-md border border-white/10 bg-white/[0.04] p-3 text-sm">
                     <div>
                       <span className="block text-xs font-medium text-zinc-500">{id}</span>
@@ -162,7 +153,7 @@ function CommandCenter() {
               <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Automatizacion activa</p>
               <h3 className="mt-3 text-lg font-semibold">Escalamiento por estructura organizacional</h3>
               <div className="mt-5 space-y-3">
-                {["Detectar area afectada", "Consultar responsable por bloque", "Recalcular SLA", "Notificar canal tecnico"].map((step, index) => (
+                {automationSteps.map((step, index) => (
                   <div key={step} className="flex items-center gap-3 text-sm text-zinc-300">
                     <span className={index < 3 ? "h-2.5 w-2.5 rounded-full bg-cyan-300" : "h-2.5 w-2.5 rounded-full bg-zinc-600"} />
                     {step}
@@ -186,17 +177,12 @@ function CommandCenter() {
           <p className="text-xs font-semibold uppercase tracking-wide text-cyan-300">Activo vinculado</p>
           <h3 className="mt-3 text-2xl font-semibold tracking-tight">Laptop Lab-42</h3>
           <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-            {["QR verificado", "Usuario asociado", "Bloque A", "Garantia activa"].map((item) => (
+            {assetTags.map((item) => (
               <span key={item} className="rounded-md bg-white/5 px-2 py-2 text-zinc-300">{item}</span>
             ))}
           </div>
           <div className="mt-8 space-y-4">
-            {[
-              ["Ticket INC-2401 creado", "hace 12 min"],
-              ["SLA critico aplicado", "hace 11 min"],
-              ["Tecnico asignado", "hace 9 min"],
-              ["Auditoria actualizada", "hace 2 min"]
-            ].map(([event, time]) => (
+            {assetTimeline.map(([event, time]) => (
               <div key={event} className="border-l border-cyan-300/40 pl-4">
                 <p className="text-sm font-medium text-white">{event}</p>
                 <p className="mt-1 text-xs text-zinc-500">{time}</p>

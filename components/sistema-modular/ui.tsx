@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { CircleDot } from "lucide-react";
+import type { FooterLink } from "./data";
 
 type SectionIntroProps = {
   eyebrow: string;
@@ -48,7 +49,7 @@ export function TechStack({ title, icon: Icon, items }: TechStackProps) {
 
 type FooterColumnProps = {
   title: string;
-  links: string[];
+  links: FooterLink[];
 };
 
 export function FooterColumn({ title, links }: FooterColumnProps) {
@@ -56,9 +57,9 @@ export function FooterColumn({ title, links }: FooterColumnProps) {
     <div>
       <h3 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{title}</h3>
       <div className="mt-4 grid gap-2.5">
-        {links.map((link) => (
-          <a key={link} href="#demo" className="text-sm font-medium text-white transition hover:text-cyan-300">
-            {link}
+        {links.map(({ label, href }) => (
+          <a key={label} href={href} className="text-sm font-medium text-white transition hover:text-cyan-300">
+            {label}
           </a>
         ))}
       </div>
